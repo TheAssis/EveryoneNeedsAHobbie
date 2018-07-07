@@ -1,0 +1,33 @@
+/*
+  I want to do a cooler "Blinker Project". I gonna use 6 leds 
+    (the number of PWM on the Uno Board is this) to do it! 
+    By TheAssis. 
+*/
+
+int aguarde = 100; //milisec time for newBlink()'s delay
+const int n_leds = 9; //leds' number
+int pot_max=230; //max birghtness to the leds
+int led[n_leds] = {2,3,4,5,6,7,8,9,10};  //where to pin the leds
+
+
+void setup(){
+  Serial.begin(9600); //gonna send things to the screen
+  for(int i = 0; i<n_leds; i++) //leds are OUTPUTS!
+    pinMode(led[i],OUTPUT);
+}
+
+void newBlink(){
+  for(int i=0; i<n_leds;i++){
+    analogWrite(led[i-1],0);
+    analogWrite(led[i],pot_max);
+    delay(aguarde);
+    if(i==n_leds)
+      i=0;
+  }
+}
+
+void loop(){
+  for(int i=0; i<n_leds;i++)
+    analogWrite(led[i],0);
+  newBlink();
+}
